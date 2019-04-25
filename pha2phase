@@ -1,0 +1,193 @@
+% clc,clear
+
+% ReadFilePath='phase.txt';
+% WriteFilePath='phase2.txt';
+% AEmptyRow(ReadFilePath,WriteFilePath);
+% %%
+% a=[];tim=[];b=[];
+% try
+% fid=fopen('phase2.txt','r');
+% while feof(fid)==0
+%      tline=fgets(fid);
+%     if  strfind(tline(8),'/') > 0
+%         tline(1:2)='# ';
+%         tline(3:6)=tline(4:7);
+%         tline(7)=' ';
+%         tline(8:9)=tline(9:10);
+%         tline(10)=' ';
+%         tline(11:12)=tline(12:13);
+%         tline(13)=' ';
+%         tline(14:15)=tline(15:16);
+%         tline(16)=' ';
+%         tline(17:18)=tline(18:19);
+%         tline(19)=' ';
+%         tline(20:24)=tline(21:25);
+%         tline(25:26)='  ';
+%         tline(27:34)=tline(27:34);
+%         tline(34)=' ';
+%         tline(53:56)=tline(48:51);
+%         tline(35:42)=tline(35:42);
+%         tline(47:50)=tline(43:46);
+%         tline(43:46)='    ';
+%         tline(52)=' ';
+%         tline(57:58)='  ';
+%         tline(59)='0';
+%         tline(60)=' ';
+%         tline(61)='0';
+%         tline(62)=' ';
+%         tline(63)='0';
+%         tline(64)=' ';
+%         tline(65:67)=tline(30:32);
+%         tline(68:69)=tline(40:41);
+%         tline(70:90)=' ';
+%         a=[a;tline(1:90)];
+%         b=[b,tline];
+%     else
+%         tline(1:5)=tline(4:8);
+%         tline(13:17)=' ';
+%         tline(6:12)=' ';
+%         tline(21:23)=tline(26:28);
+%         tline(29)=tline(18);
+%         tline(18:20)=' ';
+%         tline(24:28)=' ';
+%         tline(30)=' ';
+%         tline(31:32)=tline(33:34);
+%         tline(33)=' ';
+%         tline(34:35)=tline(36:37);
+%         tline(36)=' ';
+%         tline(37:41)=tline(39:43);
+%         tline(42:90)=' ';
+%         a=[a;tline(1:90)];
+%     end
+% end
+% end
+% dlmwrite('phase3.txt',a,'delimiter','');
+% %%
+% clc,clear
+% a=[];tim=[];
+% try
+% fid=fopen('phase3.txt','r');
+% while feof(fid)==0
+%      tline=fgets(fid);
+%     while  strfind(tline,'#') > 0
+%         nn2=str2num(tline(3:6));yy2=str2num(tline(8:9));rr2=str2num(tline(11:12));hh2=str2num(tline(14:15));mm2=str2num(tline(17:18));ss2=str2num(tline(20:23));
+%         num2=datenum(nn2,yy2,rr2,hh2,mm2,ss2);
+%         a=[a,tline];
+%         tline=fgets(fid);
+%     while strfind(tline(27:28),'  ') > 0
+%         hh3=str2double(tline(31:32));mm3=str2double(tline(34:35));ss3=str2double(tline(37:41));
+%         num3=datenum(nn2,yy2,rr2,hh3,mm3,ss3);
+%         num=(num3-num2)/6.9444e-004*60;
+%         tim=[tim,num];
+%         tline=fgets(fid);
+%     end
+%     end
+% end
+% end
+% fid=fopen('phase4.txt','w');
+% fprintf(fid,'%6.6f\n',tim');
+% dlmwrite('phase5.txt',a,'delimiter',''); 
+% %%
+% clc,clear
+% a=[];
+% try
+% fid=fopen('phase3.txt','r');
+% fid2=fopen('phase4.txt','r');
+% while feof(fid)==0
+%     tline=fgets(fid);
+%     if strfind(tline,'#') > 0 
+%         a=[a,tline];
+%     else
+%         tline2=fgets(fid2);
+%         tline(31:41)=' ';
+%         tline(8:13)=tline2(1:6);
+%         a=[a,tline];
+%     end
+% end
+% end
+% dlmwrite('phase6.txt',a,'delimiter','');
+% % %
+% clc,clear
+% a=[];
+% try
+% fid=fopen('phase6.txt','r');
+% while feof(fid)==0
+%     tline=fgets(fid);
+%     if strfind(tline,'#') > 0 
+%         a=[a,tline];
+%     else
+%         if strfind(tline(29),'P') > 0
+%             a=[a,tline];
+%             tline=fgets(fid);
+%             a=[a,tline];
+%         end
+%     end
+% end
+% end
+% dlmwrite('phase7.txt',a,'delimiter','');
+% %
+% clc,clear
+% fide=fopen('ew.txt');
+% tline2=fgets(fide);
+% fid=fopen('phase7.txt');
+% while feof(fid)==0
+%     tline=fgets(fid);
+%     if strfind(tline(1),'#') > 0
+%         dlmwrite('phase8.txt',tline,'delimiter','','-append');
+%     else
+%         if strfind(tline(29),'P') > 0
+%             tline2(1:3)=tline(1:3);
+%             dlmwrite('phase8.txt',tline,'delimiter','','-append');
+%             tline=fgets(fid);
+%             if strfind(tline(29),'S') > 0
+%                 tline(1:3)=tline2(1:3);
+%                 dlmwrite('phase8.txt',tline,'delimiter','','-append');
+%             else
+%                 dlmwrite('phase8.txt',tline,'delimiter','','-append');
+%             end
+%         end
+%     end
+% end 
+% %%
+% clc,clear
+% ReadFilePath='phase8.txt';
+% WriteFilePath='phase9.txt';
+% AEmptyRow(ReadFilePath,WriteFilePath);
+% %%
+% clc,clear
+% a=[];
+% try
+% fid=fopen('phase9.txt','r');
+% while feof(fid)==0
+%     tline=fgets(fid);
+%     if strfind(tline,'#') > 0
+%         a=[a,tline];
+%     else
+%         if strfind(tline(29),'P') > 0
+%             a=[a,tline];
+%         else
+%             tline(21:23)='0.7';
+%             a=[a,tline];
+%         end
+%     end
+% end
+% end
+% dlmwrite('phase10.txt',a,'delimiter','');
+% %%
+% clc,clear
+% a=[];
+% fih=fopen('xuhao.txt');
+% fid=fopen('phase10.txt');
+% try
+% while feof(fid)==0
+%     tline=fgets(fid);
+%     if strfind(tline,'#') > 0
+%         xuhao=fgets(fih);
+%         tline(65:69)=xuhao(1:5);
+%         a=[a;tline(1:69)];
+%     else
+%         a=[a;tline(1:69)];
+%     end
+% end
+% end
+% dlmwrite('phase11.txt',a,'delimiter','');
