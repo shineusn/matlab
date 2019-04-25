@@ -1,0 +1,112 @@
+% clc,clear
+
+% fid1=fopen('yn.txt');YN=fgets(fid1);
+% fid2=fopen('mseed.txt');mseed=fgets(fid2);
+% fid=fopen('ph_ev.txt');
+% while feof(fid)==0
+%     tline=fgets(fid);
+%     filename=tline(1:14);
+%     a=[YN filename mseed];
+%     if exist(a,'file')==2
+%         mkdir(filename);
+%         movefile(a,filename);
+%         copyfile('event.conf',filename);
+%     end  
+% end
+% clc,clear
+% %%
+
+% fileFolder=fullfile('.');
+% dirOutput=dir(fullfile(fileFolder,'*'));
+% fileNames={dirOutput.name}';
+% fid=fopen('evname.txt','w');
+% for i=1:size(fileNames,1)
+%     a = fileNames(i);
+%     a = cell2mat(a);
+%     fprintf(fid,'%s\n',a);
+% end
+% %%
+
+% clc,clear
+% fid=fopen('ph_ev.txt');
+% while feof(fid)==0
+%     tline=fgets(fid);
+%     a=[tline(1:54) tline(51) tline(1:14)];
+%     dlmwrite('ph_ev2.txt',a,'delimiter','','-append');
+% end
+% %%
+
+% clc,clear
+% fid=fopen('ph_ev3.txt');
+% data1=textscan(fid,'%s%s%s%s%[^\n]','Delimiter',' ');
+% fclose(fid);
+% data11=data1{3};
+% fid=fopen('evname.txt');
+% data2=textscan(fid,'%s%[^\n]','Delimiter',' ');
+% fclose(fid);
+% data22=data2{1};
+% r1=size(data11,1);
+% r2=size(data22,1);
+% trace=zeros(r1,2);
+% try
+% for i=1:r1
+%     for j=1:r2
+%         if isequal(data11(i,1),data22(j,1))
+%             a=[data2{2}{j} data1{1}{i} data1{2}{i}];
+%             dlmwrite('evname3.txt',a,'delimiter','','precision','14','-append');
+%         end
+%     end
+% end
+% end
+% %%
+
+% clc,clear
+% fid=fopen('evname.txt');
+% fid7=fopen('evname5.txt');
+% fid8=fopen('event.info');
+% tline8=fgets(fid8);
+% while feof(fid7)==0
+%     tline=fgets(fid);
+%     filename=tline(1:14);
+%     tline7=fgets(fid7);
+%     tline8(1:4)=tline7(1:4);
+%     tline8(5)='-';
+%     tline8(6:7)=tline7(5:6);
+%     tline(8)='-';
+%     tline8(9:10)=tline7(7:8);
+%     tline8(11)='T';
+%     tline8(12:13)=tline7(9:10);
+%     tline8(14)=':';
+%     tline8(15:16)=tline7(11:12);
+%     tline8(17)=':';
+%     tline8(18:21)=tline7(13:16);
+%     tline8(22)=' ';
+%     tline8(25:33)=tline7(23:31);
+%     tline8(34)=' ';
+%     tline8(35:44)=tline7(33:42);
+%     tline8(45)=' ';
+%     tline8(46:52)=tline7(44:50);
+%     tline8(53)=' ';
+%     tline8(54:56)=tline7(51:53);
+%     tline8(57:104)=' ';
+%     nn=str2num(tline8(1:4));yy=str2num(tline8(6:7));rr=str2num(tline8(9:10));
+%     hh=str2num(tline8(12:13));mm=str2num(tline8(15:16));ss=str2num(tline8(18:22));
+%     date=datenum(nn,yy,rr,hh,mm,ss);
+%     date2=date-8/24;
+%     tline8(1:23)=datestr(date2,'yyyy-mm-ddTHH:MM:SS.FFF');
+%     dlmwrite('event.info',tline8,'delimiter','');
+%     copyfile('event.info',filename);
+% end
+%%
+
+clc,clear
+a=[];
+fid=fopen('evname.txt');
+try
+while feof(fid)==0
+    tline=fgets(fid);
+    a=[a,tline(1:15)];
+end
+end
+dlmwrite('name.txt',a,'delimiter','');
+    
